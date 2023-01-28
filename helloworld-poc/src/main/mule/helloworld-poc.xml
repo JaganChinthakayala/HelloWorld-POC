@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c39a2bd1-2c83-4996-b872-83267e19833e" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<global-property doc:name="Global Property" doc:id="14350402-70a3-44a4-8c63-8725852c9b5a" name="http.port" value="8081" />
+	<flow name="helloworld-pocFlow" doc:id="4104b427-e377-44b4-b8aa-39492caf4f7e" >
+		<http:listener doc:name="Listener" doc:id="2ed828f8-893d-40ec-8a1d-a2879b8a4015" config-ref="HTTP_Listener_config" path="/helloWorld"/>
+		<logger level="INFO" doc:name="Logger" doc:id="634eb0b9-6b44-4120-ae0a-b66a252b8c8d" message="#[message]"/>
+		<ee:transform doc:name="Transform Message" doc:id="7ce6fdf9-c10e-4829-8166-26b331f2e931" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Hello Buddy!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
