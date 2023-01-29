@@ -19,7 +19,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	"message": "Hello Buddy!"
+	"message": "Hello Buddy!!"
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
